@@ -115,3 +115,20 @@
     # CMD - flexible, can be overridden
     # ENTRYPOINT - can't be overridden
     ```
+## How to create a Container and run it
+```bash
+# First build the image
+docker build -t <image_name> <location_of_Dockerfile>
+# -t -> for the tags
+
+# Now Run a container using a docker-image
+> docker run <image_name>
+> docker run -p <system_port>:<container_port> -v "$(pwd)/:<workdir_in_container>" <image_name>
+# here -v -> for the volume binding to accecpt the changes in working dir from current working dir.
+# also -p -> for port, Use the port that you exposed in Dockerfile as container_port
+# 
+
+```
+
+## Docker Compose
+

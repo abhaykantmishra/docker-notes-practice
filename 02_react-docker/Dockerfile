@@ -17,7 +17,8 @@ WORKDIR /app
 # Copy the package.json and package.lock.json to working directory
 # This is done to gain the advantage of docker cache before copying other files
 # If both these files are not changed, Docker will use cached deps
-COPY package*.josn ./
+COPY package.json ./
+COPY package-lock.json ./
 
 # Sometime the ownership of files in working dir is changed to root thus app can not access them
 # To avoid this err change ownership of files to root the root user
@@ -27,8 +28,9 @@ USER root
 # chown <user>:<group> <directory>
 RUN chown app:app .
 
+USER app
 # Install deps
-RUN npm install
+RUN npm ci
 
 # Copy rest of the files
 COPY . .
@@ -37,5 +39,5 @@ COPY . .
 EXPOSE 5173
 
 # Run the app in development mode:
-CMD npm run dev
+CMD ["npm", "run", "dev"]
 
